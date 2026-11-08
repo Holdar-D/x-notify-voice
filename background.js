@@ -57,29 +57,34 @@ async function xFetch(path, csrf) {
   return res.json();
 }
 
-// 通知：取列表里最大的 id，和上次比对
+// 通知：用未读数接口（badge_count）。
+// 旧的 /i/api/2/notifications/all.json 已不返回数据（查到 0 条），
+// X 网页版现在走 GraphQL，旧接口是个空壳。
+// 未读数涨了 = 有新通知；用户在 X 里看过后数字回落，静默更新基线。
 async function checkNotifs(csrf, state) {
-  const data = await xFetch('/i/api/2/notifications/all.json?count=20', csrf);
-  const list = Array.isArray(data.notifications) ? data.notifications : [];
-  let latest = '';
-  for (const n of list) {
-    const id = String(n.id ?? n.sort_index ?? '');
-    if (id) latest = maxNumStr(latest, id);
+  const data = await xFetch('/i/api/2/badge_count/badge_count.json', csrf);
+  let count = null;
+  if (typeof data.badge_count === 'number') count = data.badge_count;
+  else if (typeof data.count === 'number') count = data.count;
+  else {
+    for (const [k, v] of Object.entries(data)) {
+      if (typeof v === 'number' && /count/i.test(k)) {
+        count = v;
+        break;
+      }
+    }
   }
-  await saveState({ lastNotifCount: list.length, lastNotifLatest: latest || '—' });
-  if (!latest) {
-    if (!state.notifBaseline) await saveState({ notifBaseline: '0' });
-    return false;
-  }
-  if (!state.notifBaseline) {
-    await saveState({ notifBaseline: latest });
+  await saveState({ lastNotifCount: count == null ? '—' : count });
+  if (count == null) return false;
+  // 旧版基线存的是通知 id（19 位长串），新版存的是未读数；长串直接作废重记
+  const baseRaw = state.notifBaseline || '';
+  const base = /^\d{1,9}$/.test(baseRaw) ? parseInt(baseRaw, 10) : NaN;
+  if (isNaN(base)) {
+    await saveState({ notifBaseline: String(count) });
     return false; // 首次只记基线，不报旧消息
   }
-  if (latest !== state.notifBaseline) {
-    await saveState({ notifBaseline: latest });
-    return true;
-  }
-  return false;
+  await saveState({ notifBaseline: String(count) });
+  return count > base;
 }
 
 // 私信：取所有会话里最大的 sort_timestamp，和上次比对
