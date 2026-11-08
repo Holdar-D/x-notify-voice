@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  body { width: 280px; margin: 0; padding: 14px; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 13px; color: #222; }
+  h1 { font-size: 15px; margin: 0 0 10px; }
+  label { display: block; margin: 8px 0; }
+  input[type="text"], select { width: 100%; box-sizing: border-box; padding: 6px; margin-top: 4px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; }
+  button { margin: 6px 4px 0 0; padding: 6px 12px; border: none; border-radius: 6px; background: #1d9bf0; color: #fff; font-size: 13px; cursor: pointer; }
+  button.secondary { background: #eee; color: #222; }
+  #status { margin-top: 12px; padding: 8px; background: #f5f8fa; border-radius: 6px; font-size: 12px; line-height: 1.6; color: #536471; white-space: pre-line; }
+  .hint { font-size: 12px; color: #888; margin-top: 10px; line-height: 1.6; }
+</style>
+</head>
+<body>
+  <h1>X 新消息语音提醒</h1>
+  <label><input type="checkbox" id="dm"> 私信提醒</label>
+  <label><input type="checkbox" id="notif"> 通知提醒（@、回复等）</label>
+  <label>提醒语音
+    <input type="text" id="phrase" maxlength="60">
+  </label>
+  <label>检查间隔
+    <select id="interval">
+      <option value="1">每 1 分钟</option>
+      <option value="2">每 2 分钟</option>
+      <option value="5">每 5 分钟</option>
+    </select>
+  </label>
+  <button id="save">保存</button>
+  <button id="test" class="secondary">试听语音</button>
+  <button id="check" class="secondary">立即检查</button>
+  <button id="clear" class="secondary">清除基线</button>
+  <div id="status">加载中…</div>
+  <div class="hint">需要 Edge 开着并登录着 x.com 才能工作。首次安装只记基线，不会把旧消息报一遍。清除基线：下一轮检查会把当前最新消息当新消息报出来。</div>
+  <script src="popup.js"></script>
+</body>
+</html>
