@@ -17,7 +17,7 @@ async function load() {
     '登录状态：' + (state.loggedIn === false ? '未登录 X' : state.loggedIn ? '已登录' : '未知'),
     '上次检查：' + fmt(state.lastCheckAt),
     '上次提醒：' + fmt(state.lastAlertAt),
-    '通知：' + (state.lastNotifCount ?? '—') + ' 条，最新 ' + (state.lastNotifLatest || '—'),
+    '通知未读：' + (state.lastNotifCount ?? '—'),
     '私信：' + (state.lastDmCount ?? '—') + ' 个会话，最新 ' + (state.lastDmLatest || '—'),
   ];
   if (state.lastNotifError) lines.push('注意：' + state.lastNotifError);
