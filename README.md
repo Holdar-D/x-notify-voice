@@ -4,7 +4,7 @@ X 有新私信或新通知时，语音播报「您有新的消息啦，请及时
 
 ## 下载
 
-直接下载打包好的扩展：[x-notify-voice.zip](https://github.com/Holdar-D/x-notify-voice/raw/v1.0.1/x-notify-voice.zip)（v1.0.1）
+直接下载打包好的扩展：[x-notify-voice.zip](https://github.com/Holdar-D/x-notify-voice/raw/v1.0.2/x-notify-voice.zip)（v1.0.2）
 
 ## 安装（Edge / Chrome）
 
