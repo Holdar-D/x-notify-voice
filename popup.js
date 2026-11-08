@@ -17,7 +17,7 @@ async function load() {
     '登录状态：' + (state.loggedIn === false ? '未登录 X' : state.loggedIn ? '已登录' : '未知'),
     '上次检查：' + fmt(state.lastCheckAt),
     '上次提醒：' + fmt(state.lastAlertAt),
-    '通知未读：' + (state.lastNotifCount ?? '—'),
+    '通知：' + (state.lastNotifCount ?? '—') + ' 条，最新 ' + (state.lastNotifLatest || '—'),
     '私信：' + (state.lastDmCount ?? '—') + ' 个会话，最新 ' + (state.lastDmLatest || '—'),
   ];
   if (state.lastNotifError) lines.push('注意：' + state.lastNotifError);
@@ -29,7 +29,7 @@ $('save').onclick = async () => {
   const settings = {
     dmEnabled: $('dm').checked,
     notifEnabled: $('notif').checked,
-    phrase: $('phrase').value.trim() || '您有新的消息啦，请及时回复',
+    phrase: $('phrase').value.trim() || '您有新的消息，请及时回复',
     intervalMin: parseInt($('interval').value, 10) || 1,
   };
   await chrome.runtime.sendMessage({ type: 'saveSettings', settings });
