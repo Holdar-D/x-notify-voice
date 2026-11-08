@@ -1,10 +1,10 @@
 # X 新消息语音提醒
 
-X 有新私信或新通知时，语音播报「您有新的消息啦，请及时回复」，同时弹一条系统通知。追剧的时候也不会错过 X 上的消息。
+X 有新私信或新通知时，语音播报「您有新的消息，请及时回复」，同时弹一条系统通知。追剧的时候也不会错过 X 上的消息。
 
 ## 下载
 
-直接下载打包好的扩展：[x-notify-voice.zip](https://github.com/Holdar-D/x-notify-voice/raw/v1.0.2/x-notify-voice.zip)（v1.0.2）
+直接下载打包好的扩展：[x-notify-voice.zip](https://github.com/Holdar-D/x-notify-voice/raw/v1.0.3/x-notify-voice.zip)（v1.0.3）
 
 ## 安装（Edge / Chrome）
 
