@@ -6,9 +6,12 @@
   body { width: 280px; margin: 0; padding: 14px; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 13px; color: #222; }
   h1 { font-size: 15px; margin: 0 0 10px; }
   label { display: block; margin: 8px 0; }
-  input[type="text"], select { width: 100%; box-sizing: border-box; padding: 6px; margin-top: 4px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; }
+  input[type="text"], input[type="number"], select { width: 100%; box-sizing: border-box; padding: 6px; margin-top: 4px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; }
+  input[type="range"] { width: 100%; }
   button { margin: 6px 4px 0 0; padding: 6px 12px; border: none; border-radius: 6px; background: #1d9bf0; color: #fff; font-size: 13px; cursor: pointer; }
   button.secondary { background: #eee; color: #222; }
+  .types label { display: inline-block; margin: 2px 10px 2px 0; }
+  .sect { margin: 8px 0 2px; }
   #status { margin-top: 12px; padding: 8px; background: #f5f8fa; border-radius: 6px; font-size: 12px; line-height: 1.6; color: #536471; white-space: pre-line; }
   .hint { font-size: 12px; color: #888; margin-top: 10px; line-height: 1.6; }
 </style>
@@ -17,15 +20,41 @@
   <h1>X 新消息语音提醒</h1>
   <label><input type="checkbox" id="dm"> 私信提醒</label>
   <label><input type="checkbox" id="notif"> 通知提醒（@、回复等）</label>
+  <label><input type="checkbox" id="reminders"> 开启提醒（关掉就不提醒）</label>
+  <label><input type="checkbox" id="senderName"> 私信播报发信人名字</label>
+  <label><input type="checkbox" id="repeat"> 没看就再提醒一次</label>
+  <div class="sect">通知类型（不勾的不提醒）</div>
+  <div class="types">
+    <label><input type="checkbox" id="t-like"> 点赞</label>
+    <label><input type="checkbox" id="t-reply"> 回复</label>
+    <label><input type="checkbox" id="t-mention"> @提到</label>
+    <label><input type="checkbox" id="t-follow"> 关注</label>
+    <label><input type="checkbox" id="t-repost"> 转推</label>
+  </div>
   <label>提醒语音
     <input type="text" id="phrase" maxlength="60">
+  </label>
+  <label>语气
+    <select id="style">
+      <option value="normal">正常</option>
+      <option value="shinchan">蜡笔小新（录音）</option>
+      <option value="gentle">温柔慢速</option>
+    </select>
+  </label>
+  <label>音量 <span id="volVal">100%</span>
+    <input type="range" id="volume" min="0" max="100" step="5" value="100">
   </label>
   <label>检查间隔
     <select id="interval">
       <option value="1">每 1 分钟</option>
       <option value="2">每 2 分钟</option>
       <option value="5">每 5 分钟</option>
+      <option value="10">每 10 分钟</option>
+      <option value="30">每 30 分钟</option>
+      <option value="60">每 1 小时</option>
+      <option value="custom">自定义…</option>
     </select>
+    <input type="number" id="intervalCustom" min="1" max="1440" placeholder="分钟，如 60 = 1 小时" style="display:none">
   </label>
   <button id="save">保存</button>
   <button id="test" class="secondary">试听语音</button>
